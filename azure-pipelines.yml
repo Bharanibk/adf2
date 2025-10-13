@@ -5,11 +5,11 @@ pool:
 
 resources:
   repositories:
-  - repository: ADFRepo
+  - repository: ADFRepo # alias name given in this script
     type: github
     name: BharaniBK/adf2
     ref: refs/heads/adf_publish
-    endpoint: github.com_Bharanibk   
+    endpoint: github.com_Bharanibk   #git hub service connection we created from azdevops>project settings> connection setting> new connection to the github
 
 variables:
   resourceGroupName: 'stage'
@@ -25,7 +25,7 @@ steps:
   displayName: 'Deploy ADF ARM Template to Staging'
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'AzureRM-Bharani'
+    azureResourceManagerConnection: 'AzureRM-Bharani' # like git connection above, create a Resource Manager connection to authenticate into Azure environment
     subscriptionId: 'bec6e1a4-6737-494d-83d7-0bf6b538a400'
     action: 'Create Or Update Resource Group'
     resourceGroupName: '$(resourceGroupName)'
