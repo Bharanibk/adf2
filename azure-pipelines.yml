@@ -14,7 +14,7 @@ steps:
   displayName: 'Deploy ADF ARM Template to Staging'
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Bharanibk'  # Service connection in Azure DevOps
+    azureResourceManagerConnection: 'AzureRM-Bharani'  # Service connection in Azure DevOps
     subscriptionId: 'bec6e1a4-6737-494d-83d7-0bf6b538a400'
     action: 'Create Or Update Resource Group'
     resourceGroupName: '$(resourceGroupName)'
