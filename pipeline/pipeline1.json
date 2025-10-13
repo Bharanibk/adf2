@@ -15,8 +15,57 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "JollyGoodSalesDataset",
+						"type": "DatasetReference",
+						"parameters": {
+							"lsSourceContainer": "adflab1",
+							"ds_JG_akvurl": "https://labkv5005.vault.azure.net/"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Runid",
+						"type": "DatasetReference",
+						"parameters": {
+							"dssourceContainer": "adflab1",
+							"ds_runid_aksurl": "https://labkv5005.vault.azure.net/"
+						}
+					}
+				]
 			}
 		],
 		"annotations": []
