@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf5005"
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AKVStorage_properties_typeProperties_baseUrl": {
+			"value": "@{linkedService().akvurl}"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "sqlsvr5005.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "sample"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "clouduser"
+		},
+		"ls_storage_properties_typeProperties_url": {
+			"value": "https://shared5005.dfs.core.windows.net/"
+		}
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"gp_akvurl": {
+		"type": "string",
+		"value": "https://labkv5005.vault.azure.net/"
+	}
+}
