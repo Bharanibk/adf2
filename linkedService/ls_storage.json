@@ -1,0 +1,31 @@
+{
+	"name": "ls_storage",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"st_akvurl": {
+				"type": "string",
+				"defaultValue": "https://labkv5005.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://shared5005.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AKVStorage",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"akvurl": {
+							"value": "@linkedService().st_akvurl",
+							"type": "Expression"
+						}
+					}
+				},
+				"secretName": "sourcestoragekey"
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "AKVStorage",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"akvurl": {
+				"type": "string",
+				"defaultValue": "https://labkv5005.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "@{linkedService().akvurl}"
+		}
+	}
+}
