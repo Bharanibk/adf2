@@ -31,8 +31,8 @@ steps:
     resourceGroupName: '$(resourceGroupName)'
     location: '$(location)'
     templateLocation: 'Linked artifact'
-    csmFile: 'ARMTemplateForFactory.json'
-    csmParametersFile: 'ARMTemplateParametersForFactory.json'
+    csmFile: 'adf5005/ARMTemplateForFactory.json'
+    csmParametersFile: 'adf5005/ARMTemplateParametersForFactory.json'
     overrideParameters: >
       -factoryName $(dataFactoryName)
     deploymentMode: 'Incremental'
