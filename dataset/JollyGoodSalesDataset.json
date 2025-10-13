@@ -1,0 +1,62 @@
+{
+	"name": "JollyGoodSalesDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_storage",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"st_akvurl": {
+					"value": "@dataset().ds_JG_akvurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"lsSourceContainer": {
+				"type": "string",
+				"defaultValue": "adflab1"
+			},
+			"ds_JG_akvurl": {
+				"type": "string",
+				"defaultValue": "https://labkv5005.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "SALES",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "raw/SampleData/JollyGood",
+				"fileSystem": {
+					"value": "@dataset().lsSourceContainer",
+					"type": "Expression"
+				}
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Period",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "Unit Price",
+				"type": "String"
+			},
+			{
+				"name": "Currency",
+				"type": "String"
+			},
+			{
+				"name": "Units Sold",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

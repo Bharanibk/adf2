@@ -1,0 +1,126 @@
+{
+	"name": "LoadJollyGoodSales",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup2",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "Runid",
+						"type": "DatasetReference",
+						"parameters": {
+							"dssourceContainer": {
+								"value": "@pipeline().parameters.sourceContainer",
+								"type": "Expression"
+							},
+							"ds_runid_aksurl": {
+								"value": "@pipeline().globalParameters.gp_akvurl",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Lookup2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference",
+						"parameters": {
+							"RunSeqNo": -1,
+							"sourceContainer": {
+								"value": "'@{pipeline().parameters.sourceContainer}'",
+								"type": "Expression"
+							},
+							"targetContainer": {
+								"value": "'@{pipeline().parameters.TargetContainer}'",
+								"type": "Expression"
+							}
+						},
+						"linkedServiceParameters": {
+							"source1": {
+								"linkedService": {
+									"st_akvurl": {
+										"value": "@pipeline().globalParameters.gp_akvurl",
+										"type": "Expression"
+									}
+								}
+							},
+							"source2": {
+								"linkedService": {
+									"st_akvurl": {
+										"value": "@pipeline().globalParameters.gp_akvurl",
+										"type": "Expression"
+									}
+								}
+							},
+							"sink1": {
+								"linkedService": {
+									"st_akvurl": {
+										"value": "@pipeline().globalParameters.gp_akvurl",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"parameters": {
+			"sourceContainer": {
+				"type": "string"
+			},
+			"TargetContainer": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-10-13T15:06:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

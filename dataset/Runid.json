@@ -1,0 +1,49 @@
+{
+	"name": "Runid",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_storage",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"st_akvurl": {
+					"value": "@dataset().ds_runid_aksurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"dssourceContainer": {
+				"type": "string",
+				"defaultValue": "adflab1"
+			},
+			"ds_runid_aksurl": {
+				"type": "string",
+				"defaultValue": "https://labkv5005.vault.azure.net/"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "RunSeqNo.csv",
+				"folderPath": "raw/SampleData",
+				"fileSystem": {
+					"value": "@dataset().dssourceContainer",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "RunSeqNo",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

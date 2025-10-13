@@ -1,0 +1,17 @@
+{
+	"name": "adf5005",
+	"properties": {
+		"globalParameters": {
+			"gp_akvurl": {
+				"type": "string",
+				"value": "https://labkv5005.vault.azure.net/"
+			}
+		}
+	},
+	"location": "southcentralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bb880d72-6d61-4602-b264-024e7c26b9e9",
+		"tenantId": "72f90d7c-4c05-44be-b337-ca3c8bb239f3"
+	}
+}
