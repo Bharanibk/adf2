@@ -1,0 +1,27 @@
+trigger: none  # No automatic trigger. Use `main` if you want to trigger on push
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  resourceGroupName: 'stage'
+  dataFactoryName: 'adfstage5005'
+  location: 'East US'  # or the region of your staging ADF
+
+steps:
+
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Deploy ADF ARM Template to Staging'
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Bharanibk'  # Service connection in Azure DevOps
+    subscriptionId: 'bec6e1a4-6737-494d-83d7-0bf6b538a400'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(resourceGroupName)'
+    location: '$(location)'
+    templateLocation: 'Linked artifact'
+    csmFile: 'adf_publish/ARMTemplateForFactory.json'
+    csmParametersFile: 'adf_publish/ARMTemplateParametersForFactory.json'
+    overrideParameters: >
+      -factoryName $(dataFactoryName)
+    deploymentMode: 'Incremental'
