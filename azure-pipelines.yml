@@ -1,5 +1,5 @@
-trigger: none  # No automatic trigger. Use `main` if you want to trigger on push
-
+trigger:   # No automatic trigger. Use `main` if you want to trigger on push
+  - main
 pool:
   vmImage: ubuntu-latest
 
