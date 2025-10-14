@@ -3,41 +3,60 @@ trigger:
     include:
       - adf_publish
 
-
-  
 pool:
   vmImage: ubuntu-latest
 
 resources:
   repositories:
-  - repository: ADFRepo # alias name given in this script
+  - repository: ADFRepo
     type: github
     name: BharaniBK/adf2
     ref: refs/heads/adf_publish
-    endpoint: github.com_Bharanibk   #git hub service connection we created from azdevops>project settings> connection setting> new connection to the github
+    endpoint: github.com_Bharanibk
 
 variables:
   resourceGroupName: 'stage'
   dataFactoryName: 'adfstage5005'
-  location: 'East US'  # or the region of your staging ADF
+  location: 'East US'
 
+stages:
+- stage: Approval
+  displayName: 'Approval Stage'
+  jobs:
+  - job: waitForValidation
+    displayName: 'Waiting for Approval'
+    pool: server
+    steps:
+    - task: ManualValidation@0
+      displayName: 'Approve Deployment to Staging'
+      inputs:
+        notifyUsers: 'bharanikumarb@gmail.com'
+        instructions: 'Please review and approve the deployment to staging'
 
-steps:
-- checkout: ADFRepo
-  clean: true
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  dependsOn: Approval
+  condition: succeeded()
+  jobs:
+  - job: DeployADF
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - checkout: ADFRepo
+      clean: true
 
-- task: AzureResourceManagerTemplateDeployment@3
-  displayName: 'Deploy ADF ARM Template to Staging'
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'AzureRM-Bharani' # like git connection above, create a Resource Manager connection to authenticate into Azure environment
-    subscriptionId: 'bec6e1a4-6737-494d-83d7-0bf6b538a400'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: '$(resourceGroupName)'
-    location: '$(location)'
-    templateLocation: 'Linked artifact'
-    csmFile: 'adf5005/ARMTemplateForFactory.json'
-    csmParametersFile: 'adf5005/ARMTemplateParametersForFactory.json'
-    overrideParameters: >
-      -factoryName $(dataFactoryName)
-    deploymentMode: 'Incremental'
+    - task: AzureResourceManagerTemplateDeployment@3
+      displayName: 'Deploy ADF ARM Template to Staging'
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'AzureRM-Bharani'
+        subscriptionId: 'bec6e1a4-6737-494d-83d7-0bf6b538a400'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: '$(resourceGroupName)'
+        location: '$(location)'
+        templateLocation: 'Linked artifact'
+        csmFile: 'adf5005/ARMTemplateForFactory.json'
+        csmParametersFile: 'adf5005/ARMTemplateParametersForFactory.json'
+        overrideParameters: >
+          -factoryName $(dataFactoryName)
+        deploymentMode: 'Incremental'
