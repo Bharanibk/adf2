@@ -1,5 +1,10 @@
-trigger:   # No automatic trigger. Use `main` if you want to trigger on push
-  - main
+trigger:
+  branches:
+    include:
+      - adf_publish
+
+
+  
 pool:
   vmImage: ubuntu-latest
 
