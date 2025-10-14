@@ -30,7 +30,7 @@ stages:
     - task: ManualValidation@0
       displayName: 'Approve Deployment to Staging'
       inputs:
-        notifyUsers: 'bharanikumarb@gmail.com'
+        notifyUsers: 'bharani@aius821.onmicrosoft.com'
         instructions: 'Please review and approve the deployment to staging'
 
 - stage: Deploy
