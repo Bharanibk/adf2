@@ -469,7 +469,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"variableName": "temp",
-							"value": "newvalue"
+							"value": "newvalue abc"
 						}
 					}
 				],
