@@ -109,7 +109,10 @@
 						"type": "SnowflakeV2Sink",
 						"preCopyScript": "TRUNCATE TABLE RAW.PROJECTS;",
 						"importSettings": {
-							"type": "SnowflakeImportCopyCommand"
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"FILE_FORMAT": "RAW.FF_CSV_ADF"
+							}
 						}
 					},
 					"enableStaging": true,
