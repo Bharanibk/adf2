@@ -40,7 +40,7 @@
 								"sink": {
 									"type": "SnowflakeV2Sink",
 									"preCopyScript": {
-										"value": "@concat('TRUNCATE TABLE ', item().TargetTable)",
+										"value": "@concat('TRUNCATE TABLE RAW.', item().TargetTable)",
 										"type": "Expression"
 									},
 									"importSettings": {
