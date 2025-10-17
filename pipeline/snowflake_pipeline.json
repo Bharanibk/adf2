@@ -29,7 +29,7 @@
 								"source": {
 									"type": "DelimitedTextSource",
 									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
+										"type": "AzureBlobStorageReadSettings",
 										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
@@ -76,9 +76,6 @@
 			}
 		],
 		"parameters": {
-			"targettable": {
-				"type": "string"
-			},
 			"FilesToLoad": {
 				"type": "array",
 				"defaultValue": [
