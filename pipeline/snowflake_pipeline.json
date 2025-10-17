@@ -39,6 +39,10 @@
 								},
 								"sink": {
 									"type": "SnowflakeV2Sink",
+									"preCopyScript": {
+										"value": "@concat('TRUNCATE TABLE ', item().TargetTable)",
+										"type": "Expression"
+									},
 									"importSettings": {
 										"type": "SnowflakeImportCopyCommand",
 										"additionalCopyOptions": {
