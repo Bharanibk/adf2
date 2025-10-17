@@ -116,13 +116,7 @@
 							}
 						}
 					},
-					"enableStaging": true,
-					"stagingSettings": {
-						"linkedServiceName": {
-							"referenceName": "AzureBlobStorage1",
-							"type": "LinkedServiceReference"
-						}
-					}
+					"enableStaging": true
 				},
 				"inputs": [
 					{
