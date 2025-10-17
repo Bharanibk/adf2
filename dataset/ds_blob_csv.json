@@ -8,6 +8,11 @@
 				"st_akvurl": "https://labkv5005.vault.azure.net/"
 			}
 		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
