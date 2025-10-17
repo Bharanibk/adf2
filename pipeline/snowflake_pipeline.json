@@ -107,6 +107,7 @@
 					},
 					"sink": {
 						"type": "SnowflakeV2Sink",
+						"preCopyScript": "TRUNCATE TABLE RAW.PROJECTS;",
 						"importSettings": {
 							"type": "SnowflakeImportCopyCommand"
 						}
