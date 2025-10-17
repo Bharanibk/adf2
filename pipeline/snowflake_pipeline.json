@@ -132,7 +132,7 @@
 						"parameters": {
 							"schemaname": "RAW",
 							"tablename": {
-								"value": "PAYMENTS",
+								"value": "PROJECTS",
 								"type": "Expression"
 							}
 						}
