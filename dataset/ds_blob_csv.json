@@ -23,7 +23,7 @@
 				"container": "fdot-finance"
 			},
 			"columnDelimiter": ",",
-			"rowDelimiter": "Line feed (\r\n)",
+			"rowDelimiter": "\r\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
