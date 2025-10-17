@@ -2,11 +2,8 @@
 	"name": "ds_blob_csv",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_storage",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"st_akvurl": "https://labkv5005.vault.azure.net/"
-			}
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
 		},
 		"parameters": {
 			"filename": {
@@ -17,13 +14,13 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
+				"type": "AzureBlobStorageLocation",
 				"fileName": {
 					"value": "@dataset().filename",
 					"type": "Expression"
 				},
 				"folderPath": "raw",
-				"fileSystem": "fdot-finance"
+				"container": "fdot-finance"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
