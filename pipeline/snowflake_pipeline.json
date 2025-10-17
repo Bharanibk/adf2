@@ -5,14 +5,7 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "ds_blob_csv_copy1",
-						"dependencyConditions": [
-							"Skipped"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
@@ -47,7 +40,11 @@
 								"sink": {
 									"type": "SnowflakeV2Sink",
 									"importSettings": {
-										"type": "SnowflakeImportCopyCommand"
+										"type": "SnowflakeImportCopyCommand",
+										"additionalCopyOptions": {
+											"FILE_FORMAT": "RAW.FF_CSV_ADF",
+											"RECORD_DELIMITER": "\\n"
+										}
 									}
 								},
 								"enableStaging": false
@@ -80,69 +77,6 @@
 						}
 					]
 				}
-			},
-			{
-				"name": "ds_blob_csv_copy1",
-				"type": "Copy",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "SnowflakeV2Sink",
-						"preCopyScript": "TRUNCATE TABLE RAW.PROJECTS;",
-						"importSettings": {
-							"type": "SnowflakeImportCopyCommand",
-							"additionalCopyOptions": {
-								"FILE_FORMAT": "RAW.FF_CSV_ADF",
-								"RECORD_DELIMITER": "\\n"
-							}
-						}
-					},
-					"enableStaging": true
-				},
-				"inputs": [
-					{
-						"referenceName": "ds_blob_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"filename": {
-								"value": "projects.csv",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "ds_snowflake_table",
-						"type": "DatasetReference",
-						"parameters": {
-							"schemaname": "RAW",
-							"tablename": {
-								"value": "PROJECTS",
-								"type": "Expression"
-							}
-						}
-					}
-				]
 			}
 		],
 		"parameters": {
