@@ -1,5 +1,5 @@
 {
-	"name": "snowflake1",
+	"name": "snowflake_pipeline",
 	"properties": {
 		"activities": [
 			{
@@ -26,6 +26,12 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -33,12 +39,58 @@
 						"referenceName": "ds_blob_csv",
 						"type": "DatasetReference"
 					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_snowflake_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaname": "RAW",
+							"tablename": {
+								"value": "@pipeline().parameters.targettable",
+								"type": "Expression"
+							}
+						}
+					}
 				]
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.FilesToLoad",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
-			"sourcefile": {
+			"targettable": {
 				"type": "string"
+			},
+			"FilesToLoad": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"SourceFile": "fund_sources_q.csv",
+						"TargetTable": "FUND_SOURCES"
+					},
+					{
+						"SourceFile": "projects.csv",
+						"TargetTable": "PROJECTS"
+					},
+					{
+						"SourceFile": "vendors.csv",
+						"TargetTable": "VENDORS"
+					},
+					{
+						"SourceFile": "payments.csv",
+						"TargetTable": "PAYMENTS"
+					}
+				]
 			}
 		},
 		"annotations": []
