@@ -111,7 +111,8 @@
 						"importSettings": {
 							"type": "SnowflakeImportCopyCommand",
 							"additionalCopyOptions": {
-								"FILE_FORMAT": "RAW.FF_CSV_ADF"
+								"FILE_FORMAT": "RAW.FF_CSV_ADF",
+								"RECORD_DELIMITER": "\\n"
 							}
 						}
 					},
